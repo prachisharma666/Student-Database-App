@@ -12,7 +12,10 @@ app = Flask(__name__)
 @app.route("/")
 def home():
     return "Gaussian Naive Bayes API is Running!"
-
+    
+@app.route("/")          # Home page
+@app.route("/add", methods=["POST"])
+@app.route("/search", methods=["POST"])
 @app.route("/train", methods=["POST"])
 def train_model():
     try:
@@ -54,4 +57,5 @@ def train_model():
 if __name__ == "__main__":
     port = int(os.environ.get("PORT", 10000))
     app.run(host="0.0.0.0", port=port)
+
     
