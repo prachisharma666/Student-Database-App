@@ -4,10 +4,11 @@ import os
  
 app = Flask(__name__)
  
-# Connect to PostgreSQL using Render's DATABASE_URL
 def get_connection():
-    return psycopg2.connect(os.environ.get("DATABASE_URL"))
- 
+    database_url = os.environ.get("DATABASE_URL")
+    if not database_url:
+        raise ValueError("DATABASE_URL not set")
+    return psycopg2.connect(database_url, sslmode='require')
 # Create table if not exists
 def init_db():
     conn = get_connection()
@@ -152,3 +153,4 @@ if __name__ == "__main__":
     app.run()
  
  
+
